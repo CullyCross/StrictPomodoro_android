@@ -17,6 +17,8 @@ import me.cullycross.strictpomodoro.content.Rule;
  * Created by: cullycross
  * Date: 8/27/15
  * For my shining stars!
+ *
+ * todo(CullyCross): add footer with action +1
  */
 public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
 
