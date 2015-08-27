@@ -1,16 +1,28 @@
-package me.cullycross.strictpomodoro;
+package me.cullycross.strictpomodoro.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import me.cullycross.strictpomodoro.R;
+import me.cullycross.strictpomodoro.utils.PackageHelper;
+
 public class MainActivity extends AppCompatActivity {
 
-    @Override
+    private final static String TAG = MainActivity.class.getCanonicalName();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PackageHelper helper = new PackageHelper(this);
+
+        for (String pack:
+             helper.getInstalledPackages()) {
+            Log.d(TAG, pack);
+        }
     }
 
     @Override
