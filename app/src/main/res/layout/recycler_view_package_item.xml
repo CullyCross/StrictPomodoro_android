@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/list_item_height"
+              android:layout_margin="@dimen/list_item_margin"
+              android:orientation="horizontal"
+              android:paddingLeft="@dimen/list_item_left_padding"
+              android:paddingStart="@dimen/list_item_left_padding">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/icon"
+        android:src="@mipmap/ic_launcher"/>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:minHeight="?attr/listPreferredItemHeight"
+                    android:paddingLeft="@dimen/list_item_left_padding"
+                    android:paddingStart="@dimen/list_item_left_padding">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Application Name"
+            android:textAppearance="?attr/textAppearanceListItem"/>
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/text1"
+            android:layout_alignStart="@id/text1"
+            android:layout_below="@id/text1"
+            android:text="Package name"/>
+
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/list_item_left_padding"
+        android:paddingStart="@dimen/list_item_left_padding"/>
+
+</LinearLayout>

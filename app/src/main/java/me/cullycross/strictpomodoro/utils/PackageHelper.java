@@ -2,6 +2,8 @@ package me.cullycross.strictpomodoro.utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 
 import java.util.List;
 
@@ -13,12 +15,22 @@ import java.util.List;
 public class PackageHelper {
 
     private Context mContext;
+    private PackageManager mPackageManager;
 
     public PackageHelper(Context context) {
         mContext = context;
+        mPackageManager = context.getPackageManager();
     }
 
     public List<ApplicationInfo> getInstalledPackages() {
-        return mContext.getPackageManager().getInstalledApplications(0);
+        return mPackageManager.getInstalledApplications(0);
+    }
+
+    public Drawable getApplicationIcon(ApplicationInfo applicationInfo) {
+        return mPackageManager.getApplicationIcon(applicationInfo);
+    }
+
+    public Drawable getApplicationIcon(String packageName) throws PackageManager.NameNotFoundException {
+        return mPackageManager.getApplicationIcon(packageName);
     }
 }

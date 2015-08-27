@@ -33,7 +33,7 @@ public class ListSerializer extends TypeSerializer {
 
         // Maybe it's possible to make universal typeserializer, but I didn't find how to
         // so here is a glitch
-        return gson.toJson(o, new TypeToken<List<String>>(){}.getType());
+        return gson.toJson(o, new TypeToken<List<String>>() {}.getType());
     }
 
     @Override
@@ -43,6 +43,7 @@ public class ListSerializer extends TypeSerializer {
         }
 
         // And here, too
-        return gson.fromJson(o.toString(), new TypeToken<List<String>>(){}.getType());
+        return gson.fromJson(o.toString(), new TypeToken<List<String>>() {
+        }.getType());
     }
 }

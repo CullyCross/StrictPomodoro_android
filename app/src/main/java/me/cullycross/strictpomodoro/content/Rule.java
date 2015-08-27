@@ -58,6 +58,16 @@ public class Rule extends Model {
         return this;
     }
 
+    public Rule removePackage(int i) {
+        mPackages.remove(i);
+        return this;
+    }
+
+    public Rule removePackages(Collection<?> collection) {
+        mPackages.removeAll(collection);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Name: " + mName + ", Packages:\n" +

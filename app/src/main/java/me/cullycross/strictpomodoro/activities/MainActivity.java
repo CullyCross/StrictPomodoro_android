@@ -1,13 +1,10 @@
 package me.cullycross.strictpomodoro.activities;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,21 +16,26 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.cullycross.strictpomodoro.R;
 import me.cullycross.strictpomodoro.content.Rule;
+import me.cullycross.strictpomodoro.fragments.PackagesListFragment;
 import me.cullycross.strictpomodoro.fragments.RuleListFragment;
 import me.cullycross.strictpomodoro.utils.PackageHelper;
 
 public class MainActivity extends AppCompatActivity
-        implements RuleListFragment.OnFragmentInteractionListener {
+        implements RuleListFragment.OnFragmentInteractionListener,
+        PackagesListFragment.OnFragmentInteractionListener {
 
     private final static String TAG = MainActivity.class.getCanonicalName();
 
-    @Bind(R.id.main_toolbar) protected Toolbar mToolbar;
+    @Bind(R.id.main_toolbar)
+    protected Toolbar mToolbar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        testAddRules();
 
         initToolbar();
         initFragment();
@@ -44,6 +46,15 @@ public class MainActivity extends AppCompatActivity
              helper.getInstalledPackages()) {
             Log.v(TAG, pack.name + "\n" + pack.packageName + "\n" + pack.logo);
         }*/
+    }
+
+    private void testAddRules() {
+        List<Rule> rules = new Select().from(Rule.class).execute();
+
+        for (Rule r :
+                rules) {
+            r.delete();
+        }
 
         Rule rule = new Rule();
         rule.setName("rule1").
@@ -59,11 +70,21 @@ public class MainActivity extends AppCompatActivity
                 addPackage("rule2.package2").
                 addPackage("rule2.package3").
                 save();
-        rule.save();
-
-        List<Rule> rules = new Select().from(Rule.class).execute();
-
-        Log.v(TAG, TextUtils.join("\n", rules));
+        rule = new Rule();
+        rule.setName("rule3").
+                addPackage("rule3.package1").
+                addPackage("rule3.package2").
+                addPackage("rule3.package3").
+                addPackage("rule3.package4").
+                save();
+        rule = new Rule();
+        rule.setName("rule4").
+                addPackage("rule4.package1").
+                addPackage("rule4.package2").
+                addPackage("rule4.package3").
+                addPackage("rule4.package4").
+                addPackage("rule4.package5").
+                save();
     }
 
     @Override
@@ -91,6 +112,9 @@ public class MainActivity extends AppCompatActivity
 
     private void initToolbar() {
         setSupportActionBar(mToolbar);
+
+        //noinspection ConstantConditions
+        getSupportActionBar().setTitle("");
     }
 
     private void initFragment() {
