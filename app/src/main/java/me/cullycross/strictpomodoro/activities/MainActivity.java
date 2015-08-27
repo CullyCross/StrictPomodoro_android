@@ -1,28 +1,69 @@
 package me.cullycross.strictpomodoro.activities;
 
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.activeandroid.query.Select;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import me.cullycross.strictpomodoro.R;
+import me.cullycross.strictpomodoro.content.Rule;
+import me.cullycross.strictpomodoro.fragments.RuleListFragment;
 import me.cullycross.strictpomodoro.utils.PackageHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements RuleListFragment.OnFragmentInteractionListener {
 
     private final static String TAG = MainActivity.class.getCanonicalName();
+
+    @Bind(R.id.main_toolbar) protected Toolbar mToolbar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+
+        initToolbar();
+        initFragment();
+
         PackageHelper helper = new PackageHelper(this);
 
-        for (String pack:
+        /*for (ApplicationInfo pack:
              helper.getInstalledPackages()) {
-            Log.d(TAG, pack);
-        }
+            Log.v(TAG, pack.name + "\n" + pack.packageName + "\n" + pack.logo);
+        }*/
+
+        Rule rule = new Rule();
+        rule.setName("rule1").
+                addPackage("rule1.package1").
+                addPackage("rule1.package2").
+                addPackage("rule1.package3").
+                addPackage("rule1.package4").
+                addPackage("rule1.package5").
+                save();
+        rule = new Rule();
+        rule.setName("rule2").
+                addPackage("rule2.package1").
+                addPackage("rule2.package2").
+                addPackage("rule2.package3").
+                save();
+        rule.save();
+
+        List<Rule> rules = new Select().from(Rule.class).execute();
+
+        Log.v(TAG, TextUtils.join("\n", rules));
     }
 
     @Override
@@ -41,9 +82,21 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settings);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+    }
+
+    private void initFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .add(R.id.fragment_frame, RuleListFragment.newInstance())
+                .commit();
     }
 }

@@ -6,7 +6,18 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Pomodoro"
+        android:name=".StrictPomodoro">
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="Pomodoro.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data android:name="AA_SERIALIZERS"
+                   android:value="me.cullycross.strictpomodoro.utils.ArrayListSerializer" />
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
@@ -15,6 +26,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 

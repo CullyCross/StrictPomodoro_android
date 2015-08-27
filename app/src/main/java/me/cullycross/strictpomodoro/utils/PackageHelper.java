@@ -3,7 +3,6 @@ package me.cullycross.strictpomodoro.utils;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,13 +18,7 @@ public class PackageHelper {
         mContext = context;
     }
 
-    public List<String> getInstalledPackages() {
-        List<ApplicationInfo> listOfApps = mContext.getPackageManager().getInstalledApplications(0);
-        List<String> listOfAppsStrings = new ArrayList<String>(listOfApps.size());
-        for (ApplicationInfo app :
-                listOfApps) {
-            listOfAppsStrings.add(app.packageName);
-        }
-        return listOfAppsStrings;
+    public List<ApplicationInfo> getInstalledPackages() {
+        return mContext.getPackageManager().getInstalledApplications(0);
     }
 }
