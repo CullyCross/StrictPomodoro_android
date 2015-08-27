@@ -3,6 +3,7 @@ package me.cullycross.strictpomodoro.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -92,6 +93,17 @@ public class RuleListFragment extends Fragment {
     private void initAdapter() {
         List<Rule> rules = new Select().from(Rule.class).execute();
         mAdapter = new RuleAdapter(rules, getActivity());
+
+        mAdapter.setListener(new RuleAdapter.OnItemClick() {
+            @Override
+            public void onItemClick(long id) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .add(R.id.fragment_frame, PackagesListFragment.newInstance(((int) id)))
+                        .commit();
+            }
+        });
     }
 
     private void initRecyclerView() {

@@ -1,8 +1,9 @@
 package me.cullycross.strictpomodoro.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +75,9 @@ public class PackagesListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recycler_view_layout, container, false);
         ButterKnife.bind(this, view);
+
+        initRecyclerView();
+
         return view;
     }
 
@@ -98,6 +102,16 @@ public class PackagesListFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    private void initRecyclerView() {
+
+        mRecyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(llm);
+
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     public interface OnFragmentInteractionListener {

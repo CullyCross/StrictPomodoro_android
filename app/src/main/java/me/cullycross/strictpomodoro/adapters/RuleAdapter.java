@@ -25,6 +25,13 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
 
     private Context mContext;
 
+    private OnItemClick mListener;
+
+    public RuleAdapter setListener(OnItemClick listener) {
+        mListener = listener;
+        return this;
+    }
+
     public RuleAdapter(List<Rule> dataset, Context ctx) {
         super();
         mContext = ctx;
@@ -44,7 +51,18 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
     @Override
     public void onBindViewHolder(VHItem viewHolder, int position) {
 
-        viewHolder.mTextView.setText(mDataset.get(position).getName());
+        final Rule rule = mDataset.get(position);
+
+        viewHolder.mTextView.setText(rule.getName());
+
+        viewHolder.mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onItemClick(rule.getId());
+                }
+            }
+        });
     }
 
     @Override
@@ -61,5 +79,9 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnItemClick {
+        void onItemClick(long id);
     }
 }
