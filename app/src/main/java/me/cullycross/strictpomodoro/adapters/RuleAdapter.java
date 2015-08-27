@@ -1,7 +1,6 @@
 package me.cullycross.strictpomodoro.adapters;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +24,9 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
 
     private Context mContext;
 
-    private OnItemClick mListener;
+    private OnItemClickListener mListener;
 
-    public RuleAdapter setListener(OnItemClick listener) {
+    public RuleAdapter setListener(OnItemClickListener listener) {
         mListener = listener;
         return this;
     }
@@ -81,7 +80,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
         }
     }
 
-    public interface OnItemClick {
+    public interface OnItemClickListener {
         void onItemClick(long id);
     }
 }

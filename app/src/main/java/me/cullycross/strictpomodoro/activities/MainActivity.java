@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        testAddRules();
+        //testAddRules();
 
         initToolbar();
         initFragment();
@@ -121,6 +121,15 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .add(R.id.fragment_frame, RuleListFragment.newInstance())
+                .commit();
+    }
+
+    @Override
+    public void onItemClick(long id) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .add(R.id.fragment_frame, PackagesListFragment.newInstance(((int) id)))
                 .commit();
     }
 }

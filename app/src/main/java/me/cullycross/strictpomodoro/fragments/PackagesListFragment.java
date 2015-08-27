@@ -24,7 +24,8 @@ import me.cullycross.strictpomodoro.utils.PackageHelper;
  * Use the {@link PackagesListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PackagesListFragment extends Fragment {
+public class PackagesListFragment extends Fragment
+        implements PackageAdapter.OnCheckBoxChanged {
 
     private static final String RULE_ID = "RULE_ID";
 
@@ -34,6 +35,7 @@ public class PackagesListFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private PackageAdapter mAdapter;
     private PackageHelper mPackageHelper;
+    private Rule mRule;
 
     public static PackagesListFragment newInstance(int ruleId) {
         PackagesListFragment fragment = new PackagesListFragment();
@@ -57,16 +59,6 @@ public class PackagesListFragment extends Fragment {
 
             initAdapter(id);
         }
-    }
-
-    private void initAdapter(int id) {
-        mPackageHelper = new PackageHelper(getActivity());
-        Rule rule = Rule.load(Rule.class, id);
-        mAdapter = new PackageAdapter(
-                getActivity(),
-                mPackageHelper.getInstalledPackages(),
-                rule.getPackages()
-        );
     }
 
     @Override
@@ -104,6 +96,18 @@ public class PackagesListFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
+    private void initAdapter(int id) {
+        mPackageHelper = new PackageHelper(getActivity());
+        mRule = Rule.load(Rule.class, id);
+        mAdapter = new PackageAdapter(
+                getActivity(),
+                mPackageHelper.getInstalledPackages(),
+                mRule.getPackages()
+        );
+
+        mAdapter.setListener(this);
+    }
+
     private void initRecyclerView() {
 
         mRecyclerView.setHasFixedSize(true);
@@ -112,6 +116,16 @@ public class PackagesListFragment extends Fragment {
         mRecyclerView.setLayoutManager(llm);
 
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onCheckedChange(boolean flag, String packageName) {
+        if(flag) {
+            mRule.addPackage(packageName);
+        } else {
+            mRule.removePackage(packageName);
+        }
+        mRule.save();
     }
 
     public interface OnFragmentInteractionListener {

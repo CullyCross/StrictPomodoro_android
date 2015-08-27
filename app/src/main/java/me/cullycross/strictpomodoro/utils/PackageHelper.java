@@ -15,6 +15,7 @@ import java.util.List;
 public class PackageHelper {
 
     private Context mContext;
+
     private PackageManager mPackageManager;
 
     public PackageHelper(Context context) {
@@ -32,5 +33,9 @@ public class PackageHelper {
 
     public Drawable getApplicationIcon(String packageName) throws PackageManager.NameNotFoundException {
         return mPackageManager.getApplicationIcon(packageName);
+    }
+
+    public PackageManager getPackageManager() {
+        return mPackageManager;
     }
 }

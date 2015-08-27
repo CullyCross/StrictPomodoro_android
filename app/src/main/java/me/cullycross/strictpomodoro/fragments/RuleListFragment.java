@@ -28,7 +28,8 @@ import me.cullycross.strictpomodoro.content.Rule;
  * Use the {@link RuleListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RuleListFragment extends Fragment {
+public class RuleListFragment extends Fragment
+        implements RuleAdapter.OnItemClickListener{
 
     private OnFragmentInteractionListener mListener;
 
@@ -94,16 +95,7 @@ public class RuleListFragment extends Fragment {
         List<Rule> rules = new Select().from(Rule.class).execute();
         mAdapter = new RuleAdapter(rules, getActivity());
 
-        mAdapter.setListener(new RuleAdapter.OnItemClick() {
-            @Override
-            public void onItemClick(long id) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .add(R.id.fragment_frame, PackagesListFragment.newInstance(((int) id)))
-                        .commit();
-            }
-        });
+        mAdapter.setListener(this);
     }
 
     private void initRecyclerView() {
@@ -116,8 +108,15 @@ public class RuleListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public interface OnFragmentInteractionListener {
+    @Override
+    public void onItemClick(long id) {
+        if (mListener != null) {
+            mListener.onItemClick(id);
+        }
+    }
 
+    public interface OnFragmentInteractionListener {
+        void onItemClick(long id);
     }
 
 }

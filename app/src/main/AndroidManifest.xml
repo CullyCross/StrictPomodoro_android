@@ -16,7 +16,7 @@
             android:name="AA_DB_VERSION"
             android:value="1" />
         <meta-data android:name="AA_SERIALIZERS"
-                   android:value="me.cullycross.strictpomodoro.utils.ArrayListSerializer" />
+                   android:value="me.cullycross.strictpomodoro.utils.SetSerializer" />
 
         <activity
             android:name=".activities.MainActivity"

@@ -3,13 +3,16 @@ package me.cullycross.strictpomodoro.adapters;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,12 +27,15 @@ import me.cullycross.strictpomodoro.utils.PackageHelper;
  */
 public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.VHItem> {
 
+    private static final String TAG = PackageAdapter.class.getCanonicalName();
     private List<ApplicationInfo> mDataset;
-    private List<String> mSelected;
+    private Set<String> mSelected;
 
     private final PackageHelper mPackageHelper;
 
-    public PackageAdapter(Context ctx, List<ApplicationInfo> dataset, List<String> selected) {
+    private OnCheckBoxChanged mListener;
+
+    public PackageAdapter(Context ctx, List<ApplicationInfo> dataset, Set<String> selected) {
         super();
         mPackageHelper = new PackageHelper(ctx);
         mDataset = dataset;
@@ -47,22 +53,39 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.VHItem> 
     }
 
     @Override
-    public void onBindViewHolder(VHItem viewHolder, int position) {
+    public void onBindViewHolder(VHItem viewHolder, final int position) {
         final ApplicationInfo info = mDataset.get(position);
 
-        viewHolder.mAppName.setText(info.name);
+        viewHolder.mAppName.setText(info.loadLabel(mPackageHelper.getPackageManager()));
         viewHolder.mPackageName.setText(info.packageName);
         viewHolder.mIcon.setImageDrawable(
                 mPackageHelper.getApplicationIcon(info)
         );
+
+        viewHolder.mSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(final CompoundButton compoundButton, final boolean b) {
+                if (mListener != null) {
+                    mListener.onCheckedChange(b, info.packageName);
+                }
+            }
+        });
+
         viewHolder.mSelected.setChecked(
                 mSelected.contains(info.packageName)
         );
+
+        Log.d(TAG, info.name + " atata");
     }
 
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public PackageAdapter setListener(OnCheckBoxChanged listener) {
+        mListener = listener;
+        return this;
     }
 
     public static class VHItem extends RecyclerView.ViewHolder {
@@ -80,5 +103,9 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.VHItem> 
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnCheckBoxChanged {
+        void onCheckedChange(boolean flag, String packageName);
     }
 }

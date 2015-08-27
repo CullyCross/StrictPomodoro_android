@@ -8,7 +8,9 @@ import com.activeandroid.annotation.Table;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by: cullycross
@@ -23,11 +25,11 @@ public class Rule extends Model {
     private String mName;
 
     @Column(name = "Packages")
-    private List<String> mPackages;
+    private Set<String> mPackages;
 
     public Rule() {
         super();
-        mPackages = new ArrayList<String>();
+        mPackages = new HashSet<String>();
     }
 
     public String getName() {
@@ -39,11 +41,11 @@ public class Rule extends Model {
         return this;
     }
 
-    public List<String> getPackages() {
+    public Set<String> getPackages() {
         return mPackages;
     }
 
-    public Rule setPackages(List<String> packages) {
+    public Rule setPackages(Set<String> packages) {
         mPackages = packages;
         return this;
     }
@@ -58,12 +60,12 @@ public class Rule extends Model {
         return this;
     }
 
-    public Rule removePackage(int i) {
-        mPackages.remove(i);
+    public Rule removePackage(String o) {
+        mPackages.remove(o);
         return this;
     }
 
-    public Rule removePackages(Collection<?> collection) {
+    public Rule removePackages(Collection<String> collection) {
         mPackages.removeAll(collection);
         return this;
     }
