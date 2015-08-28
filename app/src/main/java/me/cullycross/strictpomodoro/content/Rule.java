@@ -24,12 +24,16 @@ public class Rule extends Model {
     @Column(name = "Name")
     private String mName;
 
+    @Column(name = "Running")
+    private boolean mRunning;
+
     @Column(name = "Packages")
     private Set<String> mPackages;
 
     public Rule() {
         super();
-        mPackages = new HashSet<String>();
+        mPackages = new HashSet<>();
+        mRunning = false;
     }
 
     public String getName() {
@@ -38,6 +42,15 @@ public class Rule extends Model {
 
     public Rule setName(String name) {
         mName = name;
+        return this;
+    }
+
+    public boolean isRunning() {
+        return mRunning;
+    }
+
+    public Rule setRunning(boolean running) {
+        mRunning = running;
         return this;
     }
 
@@ -72,7 +85,7 @@ public class Rule extends Model {
 
     @Override
     public String toString() {
-        return "Name: " + mName + ", Packages:\n" +
+        return "Name: " + mName + " (" + mRunning + "), Packages:\n" +
                 TextUtils.join(", ", mPackages);
     }
 }

@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.List;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        //testAddRules();
+        testAddRules();
 
         initToolbar();
         initFragment();
@@ -49,12 +51,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void testAddRules() {
-        List<Rule> rules = new Select().from(Rule.class).execute();
+        new Delete().from(Rule.class).execute();
 
-        for (Rule r :
-                rules) {
-            r.delete();
-        }
+        ActiveAndroid.beginTransaction();
 
         Rule rule = new Rule();
         rule.setName("rule1").
@@ -85,6 +84,8 @@ public class MainActivity extends AppCompatActivity
                 addPackage("rule4.package4").
                 addPackage("rule4.package5").
                 save();
+        ActiveAndroid.setTransactionSuccessful();
+        ActiveAndroid.endTransaction();
     }
 
     @Override

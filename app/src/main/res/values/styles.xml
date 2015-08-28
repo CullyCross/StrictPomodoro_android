@@ -13,4 +13,20 @@
         <item name="popupTheme">@style/Theme.AppCompat.Light</item>
     </style>
 
+    <style name="RuleTextView">
+        <item name="android:textSize">17sp</item>
+        <item name="android:paddingLeft">@dimen/list_item_left_padding</item>
+        <item name="android:paddingRight">@dimen/list_item_left_padding</item>
+        <item name="android:paddingStart">@dimen/list_item_left_padding</item>
+        <item name="android:paddingEnd">@dimen/list_item_left_padding</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="RuleRadioButton">
+        <item name="android:paddingLeft">@dimen/list_item_left_padding</item>
+        <item name="android:paddingRight">@dimen/list_item_left_padding</item>
+        <item name="android:paddingStart">@dimen/list_item_left_padding</item>
+        <item name="android:paddingEnd">@dimen/list_item_left_padding</item>
+    </style>
+
 </resources>

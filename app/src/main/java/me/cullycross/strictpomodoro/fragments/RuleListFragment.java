@@ -28,7 +28,6 @@ import me.cullycross.strictpomodoro.content.Rule;
  * Use the {@link RuleListFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
- * todo(CullyCross): add radio button
  * todo(CullyCross): add floatactionbutton(Run!)
  */
 public class RuleListFragment extends Fragment
