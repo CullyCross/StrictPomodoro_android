@@ -20,7 +20,7 @@ import me.cullycross.strictpomodoro.content.Rule;
  * Created by: cullycross
  * Date: 8/27/15
  * For my shining stars!
- *
+ * <p/>
  * todo(CullyCross): add footer with action +1
  */
 public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
@@ -52,7 +52,6 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
                 .inflate(R.layout.recycler_view_rule_item, viewGroup, false);
 
         return new VHItem(v);
-
     }
 
     @Override
@@ -83,7 +82,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RuleAdapter.VHItem> {
             @Override
             public void onClick(View v) {
                 final RadioButton radioButton = (RadioButton) v;
-                final int clickedPos =  (Integer)radioButton.getTag();
+                final int clickedPos = (Integer) radioButton.getTag();
 
                 if (radioButton.isChecked()) {
                     if (mLastChecked != null) {

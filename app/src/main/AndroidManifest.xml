@@ -3,20 +3,20 @@
     package="me.cullycross.strictpomodoro" >
 
     <application
+        android:name=".StrictPomodoro"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Pomodoro"
-        android:name=".StrictPomodoro">
-
+        android:theme="@style/Pomodoro" >
         <meta-data
             android:name="AA_DB_NAME"
             android:value="Pomodoro.db" />
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
-        <meta-data android:name="AA_SERIALIZERS"
-                   android:value="me.cullycross.strictpomodoro.utils.SetSerializer" />
+        <meta-data
+            android:name="AA_SERIALIZERS"
+            android:value="me.cullycross.strictpomodoro.utils.SetSerializer" />
 
         <activity
             android:name=".activities.MainActivity"
@@ -31,6 +31,12 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+
+        <service
+            android:name=".services.PomodoroService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
