@@ -28,7 +28,7 @@ import me.cullycross.strictpomodoro.content.Rule;
  * Use the {@link RuleListFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
- * todo(CullyCross): add floatactionbutton(Run!)
+ * todo(CullyCross): add feature to add rules
  */
 public class RuleListFragment extends Fragment
         implements RuleAdapter.OnItemClickListener{

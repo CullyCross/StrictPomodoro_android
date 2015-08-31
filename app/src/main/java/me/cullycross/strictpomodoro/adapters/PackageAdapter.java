@@ -74,8 +74,6 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.VHItem> 
         viewHolder.mSelected.setChecked(
                 mSelected.contains(info.packageName)
         );
-
-        Log.d(TAG, info.name + " atata");
     }
 
     @Override

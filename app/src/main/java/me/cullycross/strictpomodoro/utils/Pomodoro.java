@@ -1,12 +1,8 @@
 package me.cullycross.strictpomodoro.utils;
 
-import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.query.Select;
 
 import me.cullycross.strictpomodoro.content.Rule;
 import me.cullycross.strictpomodoro.services.PomodoroService;
@@ -15,6 +11,14 @@ import me.cullycross.strictpomodoro.services.PomodoroService;
  * Created by: cullycross
  * Date: 8/30/15
  * For my shining stars!
+ *
+ * todo(CullyCross): use pattern Strategy or Command to:
+ *      - block black list, allow white list only
+ *      - block with rest time, simple block for amount of time
+ * todo(CullyCross): invent timer with 25 minutes, kinda progress bar, disable all elements that time
+ * @see <a href="http://developer.android.com/reference/android/os/CountDownTimer.html">
+ *          CountDownTimer class
+ *      </a>
  */
 public class Pomodoro {
 
@@ -22,8 +26,6 @@ public class Pomodoro {
         Intent pomodoroService = new Intent(ctx, PomodoroService.class);
 
         ctx.startService(pomodoroService);
-
-        // todo(CullyCross): start PomodoroService here?
     }
 
     public static class Pomorunnable implements Runnable {
