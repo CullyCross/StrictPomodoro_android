@@ -1,26 +1,26 @@
 package me.cullycross.strictpomodoro.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
-import com.activeandroid.query.Select;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.cullycross.strictpomodoro.R;
 import me.cullycross.strictpomodoro.content.Rule;
 import me.cullycross.strictpomodoro.fragments.PackagesListFragment;
 import me.cullycross.strictpomodoro.fragments.RuleListFragment;
 import me.cullycross.strictpomodoro.utils.PackageHelper;
+import me.cullycross.strictpomodoro.utils.Pomodoro;
 
 public class MainActivity extends AppCompatActivity
         implements RuleListFragment.OnFragmentInteractionListener,
@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity
     private final static String TAG = MainActivity.class.getCanonicalName();
 
     @Bind(R.id.main_toolbar)
-    protected Toolbar mToolbar;
+    Toolbar mToolbar;
+    @Bind(R.id.fab)
+    FloatingActionButton mFab;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,5 +134,10 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .add(R.id.fragment_frame, PackagesListFragment.newInstance(((int) id)))
                 .commit();
+    }
+
+    @OnClick(R.id.fab)
+    void startPomodoro() {
+        Pomodoro.startPomodoro(this);
     }
 }

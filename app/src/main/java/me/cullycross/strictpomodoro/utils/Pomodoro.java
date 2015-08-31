@@ -19,13 +19,9 @@ import me.cullycross.strictpomodoro.services.PomodoroService;
 public class Pomodoro {
 
     public static void startPomodoro(Context ctx) {
-        Rule rule = new Select().from(Rule.class).where("Running=?", true).executeSingle();
-
         Intent pomodoroService = new Intent(ctx, PomodoroService.class);
 
-        // add Parceler, wrap Rule here and put it in intent
-
-        //ctx.startService();
+        ctx.startService(pomodoroService);
 
         // todo(CullyCross): start PomodoroService here?
     }

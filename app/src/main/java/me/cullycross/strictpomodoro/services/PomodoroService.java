@@ -4,12 +4,16 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
+
+import com.activeandroid.query.Select;
 
 import me.cullycross.strictpomodoro.content.Rule;
 import me.cullycross.strictpomodoro.utils.Pomodoro;
 
 public class PomodoroService extends Service implements Pomodoro.Pomorunnable.OnLazyUserFindListener {
 
+    private static final String TAG = PomodoroService.class.getCanonicalName();
     private Handler mHandler;
 
     private Pomodoro.Pomorunnable mPomorunnable;
@@ -17,9 +21,9 @@ public class PomodoroService extends Service implements Pomodoro.Pomorunnable.On
         super.onCreate();
 
         mHandler = new Handler();
+        Rule rule = new Select().from(Rule.class).where("Running=?", true).executeSingle();
 
-        //todo(CullyCross): pass rule as argument to this service and pass it here
-        mPomorunnable = new Pomodoro.Pomorunnable(new Rule(), mHandler, this);
+        mPomorunnable = new Pomodoro.Pomorunnable(rule, mHandler, this);
         mPomorunnable.setListener(this);
     }
 
@@ -31,8 +35,6 @@ public class PomodoroService extends Service implements Pomodoro.Pomorunnable.On
         return START_STICKY;
     }
 
-
-
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -41,6 +43,7 @@ public class PomodoroService extends Service implements Pomodoro.Pomorunnable.On
     @Override
     public void onLazyUserFind(String packageName) {
 
+        Log.d(TAG, "Package name: " + packageName);
         // todo(CullyCross): show screen notification and ads
     }
 }
