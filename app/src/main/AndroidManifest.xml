@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.cullycross.strictpomodoro" >
 
+    <!-- Permission to show view over other apps -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".StrictPomodoro"
         android:allowBackup="true"
