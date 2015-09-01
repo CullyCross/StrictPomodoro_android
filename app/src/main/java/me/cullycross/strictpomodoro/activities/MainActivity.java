@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        testAddRules();
+        //testAddRules();
 
         initToolbar();
         initFragment();
